@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Cartita de navida</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="card">
+                <div class="card-bg">
+                    <img src="card-bg.jpg" alt="">
+                </div>
+                <div class="title">
+                    <h2>Con Amor les deseo</h2>
+                    <h1>Feliz Navidad</h1>
+                    <h3>Familia Cota & Orozco </h3>
+                </div>
+                <div class="images">
+                    <img src="santa.png" class="santa" alt="">
+                    <img src="tree.png" class="tree" alt="">
+                </div>
+            </div>
+        </div>
+
+        <!-- Snow-->
+        <div id="snow-container"></div>
+
+        <script type="text/javascript">
+            const container = document.querySelector(".container");
+            const card = document.querySelector(".card");
+            const title = document.querySelector(".title")
+            const santa = document.querySelector(".santa")
+            const tree = document.querySelector(".tree")
+
+            // card rotate on mouse move
+            container.addEventListener("mousemove", (rotate) => {
+                let x = (innerWidth / 2 - rotate.pageX) / 15;
+                let y = (innerHeight / 2 - rotate.pageY) / 15;
+
+                card.style.transform = "rotateY(" + x + "deg) rotateX(" + y + "deg)";
+            });
+
+
+            // card effects on mouse over the card
+            container.addEventListener("mouseover", () => {
+                title.style.transform = "translate3d(0, 0, 160px)";
+                santa.style.transform = "translate3d(0, 0, 220px)";
+                tree.style.transform = "translate3d(0, 0, 120px)";
+                card.style.transition = "all 0.1s ease";
+            })
+
+            // card back to normal when mouse out
+            container.addEventListener("mouseout", () => {
+                card.style.transform = "rotateY(0deg) rotateX(0deg)"
+                card.style.transition = "all 0.5s ease";
+                title.style.transform = "translate3d(0, 0, 0px)";
+                santa.style.transform = "translate3d(0, 0, 0px)";
+                tree.style.transform = "translate3d(0, 0, 0px)";
+            })
+
+
+            // Snow Generator
+            const snowContainer = document.getElementById("snow-container");
+
+            function createSnowflake() {
+                const snowflake = document.createElement("div");
+                snowflake.classList.add("snowflake");
+                snowflake.textContent = "❄";
+                snowflake.style.left = Math.random() * window.innerWidth + "px";
+                snowflake.style.animationDuration = Math.random() * 3 + 2 + "s";
+                snowflake.style.fontSize = Math.random() * 10 + 10 + "px";
+                snowContainer.appendChild(snowflake);
+
+                setTimeout(() => {
+                    snowflake.remove();
+                }, 5000);
+            }
+            
+            setInterval(createSnowflake, 200)
+        </script>
+    </body>
+</html>
